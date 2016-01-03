@@ -9,7 +9,6 @@ var express = require('express'),
     mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
     config = require('./config'),
-    port = process.env.PORT || 8080, //set the port for our application
     path = require('path'),
     app = express(),
     User = require('./app/models/user');

@@ -48,10 +48,7 @@ apiRouter.post('/authenticate', function(req,res){
 
 //middleware to use for all request and verify tokens
 apiRouter.use(function(req,res,next){
-   console.log('Somebody just came to our app!');
-    //we will add more to this middleware later
-    
-    //check header or url parameters or post parameter for a token
+//check header or url parameters or post parameter for a token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
     
     //decode the token
@@ -102,11 +99,11 @@ apiRouter.route('/users')
     
         //save the user and check for errors
         user.save(function(err){
-            if(err){
-                //duplication entry
-                if(err.code == 11000){return res.json({success: false, message : 'A user with that username already exists. '});}
-                else{return res.send(err);}
-            }
+                if(err){
+                    //duplication entry
+                    if(err.code == 11000){return res.json({success: false, message : 'A user with that username already exists. '});}
+                    else{return res.send(err);}
+                }
                 res.json({message: 'User Created!'});
         });
     })
@@ -140,7 +137,7 @@ apiRouter.route('/users/:user_id')
            user.save(function(err){
                     if(err){res.send(err);}
                     //return  a message
-                    return res.json({message: 'User updated!'});
+                     res.json({message: 'User updated!'});
            });
        
         });
@@ -153,6 +150,10 @@ apiRouter.route('/users/:user_id')
             
             res.json({message: 'Successfully Deleted!'});
         });
+    });
+    
+    apiRouter.get('/me', function(req,res){
+       res.send(req.decoded); 
     });
 
     
